@@ -1,6 +1,7 @@
 package com.rnedesigns.ui.bdd;
 
 import com.rnedesigns.ui.bdd.driver.DriverFactory;
+import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 
@@ -18,7 +19,10 @@ public class Hooks {
     }
 
     @After
-    public void closeBrowser() {
+    public void closeBrowser(Scenario scenario) {
+        if (scenario.isFailed()) {
+            driverFactory.embedScreenshot(scenario);
+        }
         driverFactory.quitBrowser();
     }
 

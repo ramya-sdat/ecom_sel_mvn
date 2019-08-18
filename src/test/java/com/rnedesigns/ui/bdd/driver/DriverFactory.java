@@ -1,8 +1,8 @@
 package com.rnedesigns.ui.bdd.driver;
 
+import cucumber.api.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -15,11 +15,11 @@ public class DriverFactory {
 
     protected static WebDriver driver;
 
-    private String browser = "chrome";
-    private String appUrl = "https://www.argos.co.uk";
+//    private String browser = "chrome";
+//    private String appUrl = "https://www.argos.co.uk";
 
-//    private String browser = "browser";
-//    private String appUrl = "appUrl";
+    private String browser = System.getProperty("browser");
+    private String appUrl = System.getProperty("appUrl");
 
     public DriverFactory() {
         PageFactory.initElements(driver, this);
@@ -66,6 +66,33 @@ public class DriverFactory {
 
     public void quitBrowser() {
         driver.quit();
+    }
+
+//    public void embedScreenshot(Scenario scenario) {
+//        try {
+//            byte[] screenShot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+//            scenario.embed(screenShot, "image/png");
+//        } catch (WebDriverException wbe) {
+////            System.out.println("screenshot");
+//            wbe.printStackTrace();
+//        }
+//    }
+
+    public void embedScreenshot(Scenario scenario) {
+        if (scenario.isFailed()) {
+            try {
+                final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+                scenario.embed(screenshot, "image/png");
+            } catch (WebDriverException wde) {
+                wde.printStackTrace();
+            }
+        } else {
+            try {
+            scenario.embed(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
+            } catch (WebDriverException wde) {
+                wde.printStackTrace();
+            }
+        }
     }
 
 }

@@ -1,3 +1,4 @@
+@searchTest
 Feature: Search
   As a customer
   I want to search for a product

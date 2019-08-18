@@ -30,12 +30,25 @@ public class SearchStepDefs {
     @Then("^I should be able to view respective list of product$")
     public void i_should_be_able_to_view_respective_list_of_product() {
         String actual = resultsPage.getSearchedProductHeader();
-        assertThat("Some other product has returned", actual, Matchers.is(Matchers.equalToIgnoringCase(HomePage.searchedProductTitle)));
         explicitWait.explicitlyWait(3000);
+        assertThat("Some other product has returned", actual, Matchers.is(Matchers.equalToIgnoringCase(HomePage.searchedProductTitle)));
     }
 
     @When("^I search for a product \"([^\"]*)\"$")
     public void iSearchForAProduct(String item) {
         homePage.doSearch(item);
+        explicitWait.explicitlyWait(3000);
+    }
+
+    @When("^I search for the product \"([^\"]*)\"$")
+    public void iSearchForTheProduct(String particularProd) {
+        homePage.doSearch(particularProd);
+        explicitWait.explicitlyWait(3000);
+    }
+
+    @Then("^I should be able to view list of bag pack$")
+    public void iShouldBeAbleToViewListOfBagPack() {
+        String actual = resultsPage.getSearchedProductHeader();
+        assertThat(actual, Matchers.is(Matchers.not(HomePage.searchedProductTitle)));
     }
 }
