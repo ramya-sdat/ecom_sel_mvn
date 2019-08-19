@@ -19,7 +19,7 @@ public class FilterStepDefs {
     @Then("^then I should get list as per selected Customers Rating$")
     public void then_I_should_get_list_as_per_selected_Customers_Rating() {
         List<Double> actualRatingsList = resultsPage.getListOfProductsAsPerSelectedCustomersRating();
-        assertThat(actualRatingsList, Matchers.everyItem(Matchers.equalTo(5.0)));
+        assertThat(actualRatingsList, Matchers.everyItem(Matchers.greaterThanOrEqualTo(4.0)));
     }
 
 }

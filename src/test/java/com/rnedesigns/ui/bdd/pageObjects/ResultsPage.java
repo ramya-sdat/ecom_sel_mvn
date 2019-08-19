@@ -1,7 +1,6 @@
 package com.rnedesigns.ui.bdd.pageObjects;
 
 import com.rnedesigns.ui.bdd.driver.DriverFactory;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
@@ -22,11 +21,11 @@ public class ResultsPage extends DriverFactory {
 
     // For Filter by Customer Rating:
     @FindBy(css = ".ac-facet__filters--rating .ac-facet__label--rating")
-    List<WebElement> ul_listOfCustomersRating;
+    List<WebElement> ul_customersRatingElements;
 
     // For web element with ratings star:
-    @FindBy(css = ".Ratingsstyles__Stars-sc-8mrsjy-2")
-    List<WebElement> div_CustomersRated;
+    @FindBy(css = ".ac-product-card__rating")
+    List<WebElement> div_CustomersRatedElements;
 
     public String getSearchedProductHeader() {
         return h1_titleHeader.getText();
@@ -53,9 +52,9 @@ public class ResultsPage extends DriverFactory {
 
     //Fetching product upon selected Customer Rating:
     public void selectACustomersRating(String choice) {
-        for (WebElement ratingsListWebElement : ul_listOfCustomersRating) {
-            if (ratingsListWebElement.getText().equalsIgnoreCase(choice)) {
-                ratingsListWebElement.click();
+        for (WebElement customersRatingElement : ul_customersRatingElements) {
+            if (customersRatingElement.getText().equalsIgnoreCase(choice)) {
+                customersRatingElement.click();
             break;
             }
         }
@@ -64,8 +63,8 @@ public class ResultsPage extends DriverFactory {
     //For Asserting the products list when selected via Customers Rating:
     public List<Double> getListOfProductsAsPerSelectedCustomersRating() {
         List<Double> collectedRatings = new ArrayList<>();
-        for (WebElement ratingsWebElement : div_CustomersRated) {
-            String ratingValueInString = ratingsWebElement.getAttribute("data-star-rating");
+        for (WebElement customersRatedElement : div_CustomersRatedElements) {
+            String ratingValueInString = customersRatedElement.getAttribute("data-star-rating");
             double ratingValueInDouble = Double.parseDouble(ratingValueInString);
             collectedRatings.add(ratingValueInDouble);
         }

@@ -10,8 +10,9 @@ Feature: Filter products by Customer Rating and Price Range
     Given I am on home page
     When I search for a product "<prod>"
     Then I should be able to view respective list of product
+#    And wait till all the products load
 #    And scroll down to the customer ratings element on the page
-    And I will choose the option "5or more"
+    And I will choose the option "4or more"
     And then I should get list as per selected Customers Rating
     Examples:
       | prod   |
