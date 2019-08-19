@@ -24,7 +24,7 @@ public class ResultsPage extends DriverFactory {
     List<WebElement> ul_customersRatingElements;
 
     // For web element with ratings star:
-    @FindBy(css = ".ac-product-card__rating")
+    @FindBy(css = ".Ratingsstyles__Wrapper-sc-8mrsjy-0")
     List<WebElement> div_CustomersRatedElements;
 
     public String getSearchedProductHeader() {
